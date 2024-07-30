@@ -1,0 +1,9 @@
+{
+    "xs": "480px and above",
+    "sm": "640px and above",
+    "md": "768px and above",
+    "lg": "1024px and above",
+    "xl": "1280px and above",
+    "2xl": "1536px and above"
+  }
+  
