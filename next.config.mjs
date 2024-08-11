@@ -12,7 +12,7 @@ export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
-  org: "carepulse",
+  org: "carepulse-wj",
   project: "carePulse",
 
   // Only print logs for uploading source maps in CI
