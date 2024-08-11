@@ -16,6 +16,10 @@ import {
 import { Input } from "./ui/input";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
+import DatePicker from "react-datepicker";
+import { setHours, setMinutes } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -116,16 +120,13 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             className="ml-2"
           />
           <FormControl>
-            <ReactDatePicker
-                    showTimeSelect={props.showTimeSelect ?? false}
-                    selected={field.value}
-                    onChange={(date: Date) => field.onChange(date)}
-                    timeInputLabel="Time:"
-                    dateFormat={props.dateFormat ?? "dd/MM/yyyy"}
-                    wrapperClassName="date-picker"
-                    showMonthDropdown
-                    showYearDropdown
-                    dropdownMode="select"
+            <DatePicker
+              showTimeSelect={props.showTimeSelect ?? false}
+              selected={field.value}
+              onChange={(date: Date) => field.onChange(date)}
+              timeInputLabel="Time:"
+              dateFormat={props.dateFormat ?? "MMMM d, yyyy h:mm aa"}
+              wrapperClassName="date-picker"
             />
           </FormControl>
         </div>
@@ -154,6 +155,9 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
 
 const CustomFormField = (props: CustomProps) => {
   const { control, name, label } = props;
+  const [startDate, setStartDate] = useState(
+    setHours(setMinutes(new Date(), 30), 16)
+  );
 
   return (
     <FormField

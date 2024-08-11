@@ -1,12 +1,15 @@
 import { AppointmentForm } from "@/components/forms/AppointmentForm";
 import RegisterForm from "@/components/forms/RegisterForm";
-import { getUser } from "@/lib/actions/patient.actions";
+import { getPatient, getUser } from "@/lib/actions/patient.actions";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import * as Sentry from '@sentry/nextjs'
 
 export default async function NewAppointment({ params: { userId } }: SearchParamProps) {
-  const patient = await getUser(userId);
+  const patient = await getPatient(userId);
+  Sentry.metrics.set("user_view_new-appointment", patient.name);
+ console.log('patient' ,patient)
   return (
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto">
@@ -20,7 +23,7 @@ export default async function NewAppointment({ params: { userId } }: SearchParam
           />
 
           <AppointmentForm type="create" userId={userId} patientId={patient.$id} />
-          <p className="justify-items-end text-dark-600 xl:text-left">
+          <p className="copyright mt-10 py-12">
             © 2024 CarePluse
           </p>
         </div>
